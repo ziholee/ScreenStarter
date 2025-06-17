@@ -33,13 +33,16 @@ MinGW-w64 (GCC for Windows)와 같은 C++ 컴파일러가 설치되어 있고, `
 터미널(Command Prompt, PowerShell, Git Bash 등)에서 다음 명령어를 사용하여 컴파일할 수 있습니다:
 
 ```bash
-g++ main.cpp -o MultiMonitorLauncher.exe -mwindows -luser32 -lgdi32 -lcomdlg32
+g++ main.cpp -o MultiMonitorLauncher.exe -mwindows -DUNICODE -D_UNICODE -std=c++11 -pthread -luser32 -lgdi32 -lcomdlg32
 ```
 
 *   `g++`: C++ 컴파일러를 실행합니다.
 *   `main.cpp`: 컴파일할 소스 코드 파일입니다.
 *   `-o MultiMonitorLauncher.exe`: 출력될 실행 파일의 이름을 `MultiMonitorLauncher.exe`로 지정합니다.
 *   `-mwindows`: 이 프로그램이 콘솔 창 없이 GUI 애플리케이션으로 실행되도록 합니다 (`WinMain` 함수 사용).
+*   `-DUNICODE -D_UNICODE`: Windows API 호출 시 유니코드 버전(예: `MessageBoxW` 대신 `MessageBoxA`)을 사용하도록 전처리기 매크로를 정의합니다. 이를 통해 `wchar_t` 타입의 문자열과 `L"..."` 형태의 리터럴을 올바르게 처리할 수 있습니다.
+*   `-std=c++11`: C++11 표준에 따라 코드를 컴파일합니다. `std::thread`, `std::chrono`와 같은 C++11 기능을 사용하기 위해 필요합니다.
+*   `-pthread`: POSIX 스레드 라이브러리와의 링크 및 관련 옵션을 활성화합니다. MinGW 환경에서 C++ 표준 스레드 (`std::thread`)를 사용하기 위해 필요합니다.
 *   `-luser32`, `-lgdi32`, `-lcomdlg32`: 필요한 Windows 라이브러리들을 링크합니다. (각각 User32, GDI32, Common Dialogs 라이브러리)
 
 컴파일이 성공적으로 완료되면 현재 디렉터리에 `MultiMonitorLauncher.exe` 파일이 생성됩니다.
