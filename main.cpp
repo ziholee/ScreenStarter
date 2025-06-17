@@ -108,21 +108,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow) {
 // GUI 처리
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     static HWND hButton;
+    static HWND hExitButton; // 종료 버튼 핸들 추가
 
     switch (msg) {
     case WM_CREATE:
-        hButton = CreateWindow(L"BUTTON", L".exe 선택 및 실행",
+        // 기존 버튼 수정: 레이블 변경, x 좌표 및 너비 조정
+        hButton = CreateWindow(L"BUTTON", L"프로그램 실행",
             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-            100, 60, 200, 40,
+            50, 60, 140, 40, // x=50, 너비=140
             hwnd, (HMENU)1, (HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE), NULL);
+
+        // 새 버튼 "종료" 추가
+        hExitButton = CreateWindow(L"BUTTON", L"종료",
+            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            210, 60, 140, 40, // x=210, 너비=140, y는 동일
+            hwnd, (HMENU)2, (HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE), NULL);
         break;
 
     case WM_COMMAND:
-        if (LOWORD(wParam) == 1) {
+        if (LOWORD(wParam) == 1) { // "프로그램 실행" 버튼
             std::wstring filePath = OpenFileDialog(hwnd);
             if (!filePath.empty()) {
                 RunProgramOnCurrentMonitor(filePath);
             }
+        } else if (LOWORD(wParam) == 2) { // "종료" 버튼
+            PostQuitMessage(0);
         }
         break;
 
