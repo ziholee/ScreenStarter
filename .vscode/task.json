@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Win32 GUI",
+      "type": "shell",
+      "command": "cl",
+      "args": [
+        "/EHsc",
+        "main.cpp",
+        "user32.lib",
+        "gdi32.lib",
+        "comdlg32.lib",
+        "/link",
+        "/SUBSYSTEM:WINDOWS",
+        "/OUT:launcher.exe"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
