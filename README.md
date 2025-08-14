@@ -39,6 +39,22 @@
     python3 -m monitor_selector.main
     ```
 
+## 📦 실행 파일 생성 (.exe)
+
+Python이 설치되지 않은 환경에서도 프로그램을 쉽게 실행할 수 있도록, `pyinstaller`를 사용하여 `.exe` 파일을 생성할 수 있습니다.
+
+1.  **pyinstaller 설치**:
+    ```bash
+    pip install pyinstaller
+    ```
+
+2.  **.exe 파일 생성**:
+    프로젝트 루트 폴더에서 다음 명령어를 실행합니다.
+    ```bash
+    pyinstaller --onefile --windowed --name MonitorSelector monitor_selector/main.py
+    ```
+    - 빌드가 완료되면 `dist` 폴더 안에 `MonitorSelector.exe` 파일이 생성됩니다. 이 파일을 배포하여 사용할 수 있습니다.
+
 ## 🏗️ 향후 개발 계획
 
 - Windows `pywin32`를 이용한 창 이동 기능 구현
