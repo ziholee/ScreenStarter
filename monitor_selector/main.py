@@ -120,5 +120,5 @@ class App(tk.Tk):
             messagebox.showerror("Error", f"Failed to launch program: {e}")
 
 
-if __name__ == "__main__":
-    print("Tkinter App structure created. Cannot run mainloop in headless environment.")
+# This file is intended to be used as a module.
+# To run the application, please execute the `run.py` script in the project root.
